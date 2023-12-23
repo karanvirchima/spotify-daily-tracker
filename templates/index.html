@@ -60,20 +60,6 @@
         <h2>Hello, {{ user_name }}!</h2>  
         <p class="lead">Here are your stats for the today:</p>
     </div>
-
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-lg-12 mb-3">
-                <div class="card">
-                    <div class="card-header bg-spotify">
-                        Genres Listened
-                    </div>
-                    <div class="card-body">
-                        <canvas id="genresChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-4 mb-3">
                 <div class="card text-center">
@@ -109,6 +95,42 @@
                     </ul>
                 </div>
             </div>
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-lg-12 mb-3">
+                        <canvas id="genresChart"></canvas>
+                    </div>
+                </div>
+            </div>
+    
+            <script>
+                var ctx = document.getElementById('genresChart').getContext('2d');
+                var genresChart = new Chart(ctx, {
+                    type: 'bar',  // or 'pie', 'doughnut', etc.
+                    data: {
+                        labels: {{ genres_listened | tojson | safe }},
+                        datasets: [{
+                            label: 'Genres Listened',
+                            data: {{ genres_count | tojson | safe }},
+                            backgroundColor: 'rgba(29, 185, 84, 0.5)',
+                            borderColor: 'rgba(29, 185, 84, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        legend: {
+                            labels: {
+                                fontColor: 'white'
+                            }
+                        }
+                    }
+                });
+            </script>
         </div>
     </div>
 
