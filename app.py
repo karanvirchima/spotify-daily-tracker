@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
-# Import the required functions from spotify_tracker module
 from spotify_tracker import get_time_listened, get_top_artists, get_genres_from_top_artists, get_top_tracks, get_user_profile
 
 app = Flask(__name__)
@@ -17,10 +16,10 @@ def create_spotify_client():
 def index():
     sp = create_spotify_client()
     user_name, profile_pic_url = get_user_profile(sp)
-    total_time_listened = get_time_listened(sp)  # Pass sp to the function
-    top_artists = get_top_artists(sp)  # Pass sp to the function
-    top_tracks = get_top_tracks(sp)  # Get top tracks
-    genres_listened = get_genres_from_top_artists(top_artists)  # Pass top_artists to the function
+    total_time_listened = get_time_listened(sp)  
+    top_artists = get_top_artists(sp)  
+    top_tracks = get_top_tracks(sp)  
+    genres_listened = get_genres_from_top_artists(top_artists)  
     genres_count = [1] * len(genres_listened)
     return render_template('index.html', genres_listened=genres_listened, genres_count=genres_count,  user_name=user_name, profile_pic_url=profile_pic_url, total_time=total_time_listened, top_artists=top_artists,  top_tracks=top_tracks)
 
