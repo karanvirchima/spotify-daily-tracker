@@ -22,15 +22,23 @@ def get_time_listened(sp):
     # Format the string to return it as "X hrs Y min Z sec"
     return f"{hours} hrs {minutes} min {seconds} sec"
 
+# def get_top_artists(sp, time_range='short_term', limit=5):
+#     top_artists = sp.current_user_top_artists(time_range=time_range, limit=limit)
+#     return [(artist['name'], artist['genres']) for artist in top_artists['items']]
+
 def get_top_artists(sp, time_range='short_term', limit=5):
     top_artists = sp.current_user_top_artists(time_range=time_range, limit=limit)
-    return [(artist['name'], artist['genres']) for artist in top_artists['items']]
+    artists_and_genres = [(artist['name'], artist['genres']) for artist in top_artists['items']]
+    print("Top Artists and Genres:", artists_and_genres)  # Debug print
+    return artists_and_genres
 
 def get_genres_from_top_artists(top_artists):
     genres = set()
-    for name, artist_genres in top_artists:
+    for artist_name, artist_genres in top_artists:
         genres.update(artist_genres)
+    print("Fetched Genres:", genres)  # Debug print
     return list(genres)
+
 
 def get_top_tracks(sp, time_range='short_term', limit=5):
     top_tracks = sp.current_user_top_tracks(time_range=time_range, limit=limit)
