@@ -21,7 +21,8 @@ def index():
     top_artists = get_top_artists(sp)  # Pass sp to the function
     top_tracks = get_top_tracks(sp)  # Get top tracks
     genres_listened = get_genres_from_top_artists(top_artists)  # Pass top_artists to the function
-    return render_template('index.html',  user_name=user_name, profile_pic_url=profile_pic_url, total_time=total_time_listened, top_artists=top_artists,  top_tracks=top_tracks, genres_listened=genres_listened)
+    genres_count = [1] * len(genres_listened)
+    return render_template('index.html', genres_listened=genres_listened, genres_count=genres_count,  user_name=user_name, profile_pic_url=profile_pic_url, total_time=total_time_listened, top_artists=top_artists,  top_tracks=top_tracks)
 
 if __name__ == '__main__':
     app.run(debug=True)
